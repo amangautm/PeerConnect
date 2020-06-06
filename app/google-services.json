@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "157303218409",
+    "firebase_url": "https://peerconnect-28f68.firebaseio.com",
+    "project_id": "peerconnect-28f68",
+    "storage_bucket": "peerconnect-28f68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157303218409:android:61490d971d314a56685078",
+        "android_client_info": {
+          "package_name": "com.example.amangautam.peerconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157303218409-i03h96jm6s0cv6e384c3gsjo5pe3514f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.amangautam.peerconnect",
+            "certificate_hash": "750570e67a07dfab2f5ca07223ceb01fe3bbb96e"
+          }
+        },
+        {
+          "client_id": "157303218409-m1ahfgt9i211fi5dara130d05h9etiij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCC6Jd6RKhJdeyhjRpYQ1KGAiw8J2ZSC6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157303218409-m1ahfgt9i211fi5dara130d05h9etiij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
