@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.amangautam.peerconnect.Adapter.UserAdapter;
 import com.example.amangautam.peerconnect.Model.Chatlist;
 import com.example.amangautam.peerconnect.Model.User;
+import com.example.amangautam.peerconnect.Notifications.Token;
 import com.example.amangautam.peerconnect.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -71,17 +72,17 @@ public class ChatsFragment extends Fragment {
             }
         });
 
-//        updateToken(FirebaseInstanceId.getInstance().getToken());
+        updateToken(FirebaseInstanceId.getInstance().getToken());
 
 
         return view;
     }
 
-//    private void updateToken(String token){
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
-//        Token token1 = new Token(token);
-//        reference.child(fuser.getUid()).setValue(token1);
-//    }
+    private void updateToken(String token){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        reference.child(fuser.getUid()).setValue(token1);
+    }
 
     private void chatList() {
         mUsers = new ArrayList<>();

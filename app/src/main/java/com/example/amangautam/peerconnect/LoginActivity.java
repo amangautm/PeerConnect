@@ -40,8 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         btn_login = findViewById(R.id.btn_login);
-
-        /*
         forgot_password = findViewById(R.id.forgot_password);
 
         forgot_password.setOnClickListener(new View.OnClickListener() {
@@ -50,8 +48,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
             }
         });
-
-        */
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override

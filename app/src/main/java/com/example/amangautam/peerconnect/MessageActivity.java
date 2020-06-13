@@ -16,8 +16,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.amangautam.peerconnect.Adapter.MessageAdapter;
+import com.example.amangautam.peerconnect.Fragments.APIService;
 import com.example.amangautam.peerconnect.Model.Chat;
 import com.example.amangautam.peerconnect.Model.User;
+import com.example.amangautam.peerconnect.Notifications.Client;
+import com.example.amangautam.peerconnect.Notifications.Data;
+import com.example.amangautam.peerconnect.Notifications.MyResponse;
+import com.example.amangautam.peerconnect.Notifications.Sender;
+import com.example.amangautam.peerconnect.Notifications.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,7 +64,7 @@ public class MessageActivity extends AppCompatActivity {
 
     String userid;
 
-//    APIService apiService;
+    APIService apiService;
 
     boolean notify = false;
 
@@ -79,7 +85,7 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
-//        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -101,7 +107,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 notify = true;
                 String msg = text_send.getText().toString();
-                if (!msg.equals("")) {
+                if (!msg.equals("")){
                     sendMessage(fuser.getUid(), userid, msg);
                 } else {
                     Toast.makeText(MessageActivity.this, "You can't send empty message", Toast.LENGTH_SHORT).show();
@@ -118,7 +124,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")) {
+                if (user.getImageURL().equals("default")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 } else {
                     //and this
@@ -137,14 +143,14 @@ public class MessageActivity extends AppCompatActivity {
         seenMessage(userid);
     }
 
-    private void seenMessage(final String userid) {
+    private void seenMessage(final String userid){
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         seenListener = reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid)) {
+                    if (chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid)){
                         HashMap<String, Object> hashMap = new HashMap<>();
                         hashMap.put("isseen", true);
                         snapshot.getRef().updateChildren(hashMap);
@@ -159,7 +165,7 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String sender, final String receiver, String message) {
+    private void sendMessage(String sender, final String receiver, String message){
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
@@ -171,8 +177,6 @@ public class MessageActivity extends AppCompatActivity {
 
         reference.child("Chats").push().setValue(hashMap);
 
-        //while uncommenting remove this parenthesis
-
 
         // add user to chat fragment
         final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
@@ -182,7 +186,7 @@ public class MessageActivity extends AppCompatActivity {
         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
+                if (!dataSnapshot.exists()){
                     chatRef.child("id").setValue(userid);
                 }
             }
@@ -192,7 +196,6 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
-
 
         final DatabaseReference chatRefReceiver = FirebaseDatabase.getInstance().getReference("Chatlist")
                 .child(userid)
@@ -218,8 +221,6 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*
 
     private void sendNotifiaction(String receiver, final String username, final String message){
         DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
@@ -260,10 +261,7 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    */
-
-
-    private void readMesagges(final String myid, final String userid, final String imageurl) {
+    private void readMesagges(final String myid, final String userid, final String imageurl){
         mchat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -271,10 +269,10 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mchat.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
                     if (chat.getReceiver().equals(myid) && chat.getSender().equals(userid) ||
-                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)) {
+                            chat.getReceiver().equals(userid) && chat.getSender().equals(myid)){
                         mchat.add(chat);
                     }
 
@@ -290,13 +288,13 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void currentUser(String userid) {
+    private void currentUser(String userid){
         SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
         editor.putString("currentuser", userid);
         editor.apply();
     }
 
-    private void status(String status) {
+    private void status(String status){
         reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
 
         HashMap<String, Object> hashMap = new HashMap<>();
