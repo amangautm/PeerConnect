@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Register");
+        getSupportActionBar().setTitle("SIGN UP");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         username = findViewById(R.id.username);
@@ -54,9 +54,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String txt_password = password.getText().toString();
 
                 if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)){
-                    Toast.makeText(RegisterActivity.this, "All fileds are required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "All fileds are required",
+                            Toast.LENGTH_SHORT).show();
                 } else if (txt_password.length() < 6 ){
-                    Toast.makeText(RegisterActivity.this, "password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "password must be at least 6 characters",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     register(txt_username, txt_email, txt_password);
                 }
